@@ -24,42 +24,38 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
   orangeKittyNames() {
-
-    // Return an array of just the names of kitties who are orange e.g.
-    // ['Tiger', 'Snickers']
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.filter((kitten) => {
+      return kitten.color === 'orange';
+    }).map((kitten) => {
+      return kitten.name;
+    });
     return result;
-
     // Annotation:
-    // Write your annotation here as a comment
+    // Goal: Return an array of just the names of kitties who are orange e.g. ['Tiger', 'Snickers']
+    // Method: first filter the array for kitties that are orange AND THEN map over this new array to pull out the names as a new array again
   },
 
   sortByAge() {
-    // Sort the kitties by their age
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a, b) => {
+      return b.age - a.age;
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Goal: Sort the kitties by their age
+    // Method: Return an array that is sorted oldest to youngest, so b-a, instead of a-b.
   },
 
   growUp() {
-    // Return an array of kitties who have all grown up by 2 years e.g.
-    // [{
-    //   name: 'Felicia',
-    //   age: 4,
-    //   color: 'grey'
-    // },
-    // {
-    //   name: 'Tiger',
-    //   age: 7,
-    //   color: 'orange'
-    // },
-    // ...etc]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.map((kitten) => {
+      kitten.age += 2;
+      return kitten;
+    });
     return result;
+
+    // Annotation:
+    // Goal: Return an array of kitties who have all grown up by 2 years (age of 2 would then be 4)
+    // Method: Use map to return an array with updated age for each kitty
   }
 };
 
@@ -89,11 +85,32 @@ const clubPrompts = {
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
+    const allMembersRepeat = [];
+    clubs.forEach((element) => {
+      allMembersRepeat.push(element.members);
+    });
+    console.log(allMembersRepeat);
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const flattenAllMembers = allMembersRepeat.flat();
+    console.log(flattenAllMembers);
+
+    const membersNoRepeat = [];
+    flattenAllMembers.forEach((element) => {
+      if(!membersNoRepeat.includes(element)) {
+        membersNoRepeat.push(element);
+      }
+    });
+    console.log(membersNoRepeat);
+
+    // const result = clubs.reduce((acc, element, index) => {
+    //   return acc = element.members.reduce((acc, element) => {
+    //     return acc
+    //   }, '');
+    // }, []);
+    // return result;
 
     // Annotation:
+
     // Write your annotation here as a comment
   }
 };
