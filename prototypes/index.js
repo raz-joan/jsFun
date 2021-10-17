@@ -78,40 +78,30 @@ const kittyPrompts = {
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
   membersBelongingToClubs() {
-    // Create an object whose keys are the names of people, and whose values are
+
+    const newPersonToClubObject = clubs.reduce((obj, each) => {
+      each.members.forEach((person) => {
+        if (obj[person]) {
+          obj[person].push(each.club);
+        } else {
+          obj[person] = [each.club];
+        }
+        return obj;
+      });
+      return obj;
+    }, {});
+
+    return newPersonToClubObject;
+
+    // Annotation:
+    // GOAL: Create an object whose keys are the names of people, and whose values are
     // arrays that include the names of the clubs that person is a part of. e.g.
     // {
     //   Louisa: ['Drama', 'Art'],
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
-    const allMembersRepeat = [];
-    clubs.forEach((element) => {
-      allMembersRepeat.push(element.members);
-    });
-    console.log(allMembersRepeat);
-
-    const flattenAllMembers = allMembersRepeat.flat();
-    console.log(flattenAllMembers);
-
-    const membersNoRepeat = [];
-    flattenAllMembers.forEach((element) => {
-      if(!membersNoRepeat.includes(element)) {
-        membersNoRepeat.push(element);
-      }
-    });
-    console.log(membersNoRepeat);
-
-    // const result = clubs.reduce((acc, element, index) => {
-    //   return acc = element.members.reduce((acc, element) => {
-    //     return acc
-    //   }, '');
-    // }, []);
-    // return result;
-
-    // Annotation:
-
-    // Write your annotation here as a comment
+    // Method: Map over the array to create a new object. For each member, if the name is not a current key then add it with the corresponding club to the array it is holding, else assign the new name as a key with the array holding the club name.
   }
 };
 
@@ -134,20 +124,23 @@ const clubPrompts = {
 // DATASET: mods from ./datasets/mods
 const modPrompts = {
   studentsPerMod() {
-    // Return an array of objects where the keys are mod (the number of the module)
-    // and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
-    // [
-    //   { mod: 1, studentsPerInstructor: 9 },
-    //   { mod: 2, studentsPerInstructor: 11 },
-    //   { mod: 3, studentsPerInstructor: 10 },
-    //   { mod: 4, studentsPerInstructor: 8 }
-    // ]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = mods.map((each) => {
+      let newObj = {};
+      newObj.mod = each.mod;
+      newObj.studentsPerInstructor = (each.students / each.instructors);
+      return newObj;
+    });
     return result;
 
-    // Annotation:
-    // Write your annotation here as a comment
+  // Annotation:
+  // GOAL: Return an array of objects where the keys are mod (the number of the module) and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
+  // [
+  //   { mod: 1, studentsPerInstructor: 9 },
+  //   { mod: 2, studentsPerInstructor: 11 },
+  //   { mod: 3, studentsPerInstructor: 10 },
+  //   { mod: 4, studentsPerInstructor: 8 }
+  // ]
+  // Method: use map to return array of same length with object at each index w/ two properties: mod number and students/instructor
   }
 };
 

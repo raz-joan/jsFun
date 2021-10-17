@@ -2,13 +2,13 @@ const chai = require("chai");
 const expect = chai.expect;
 
 const {
+  kittyPrompts,
   breweryPrompts,
   turingPrompts,
   clubPrompts,
   bossPrompts,
   classPrompts,
   modPrompts,
-  kittyPrompts,
   cakePrompts,
   astronomyPrompts,
   ultimaPrompts,
@@ -22,10 +22,10 @@ describe("PROTOTYPES", () => {
   describe("Kitty Prompts", () => {
     it("orangeKittyNames", () => {
       const e = kittyPrompts.orangeKittyNames();
-      
+
       expect(e).to.deep.equal(["Tiger", "Snickers"])
     });
-    
+
     it("sortByAge", () => {
       const e = kittyPrompts.sortByAge();
 
@@ -47,7 +47,7 @@ describe("PROTOTYPES", () => {
         color: "tuxedo"
       }])
     });
-    
+
     it("growUp", () => {
       const e = kittyPrompts.growUp();
 
@@ -70,7 +70,7 @@ describe("PROTOTYPES", () => {
       }])
     })
   });
-  
+
   describe("Club Prompts", () => {
     it("membersBelongingToClubs", () => {
       const e = clubPrompts.membersBelongingToClubs({
@@ -100,7 +100,7 @@ describe("PROTOTYPES", () => {
       })
     })
   });
-  
+
   describe("Mod Prompts", () => {
     it("studentsPerMod", () => {
       const e = modPrompts.studentsPerMod();
@@ -120,9 +120,9 @@ describe("PROTOTYPES", () => {
       }])
     })
   });
-  
+
   describe("Cake Prompts", () => {
-    it("stockPerCake", () => {
+    it.skip("stockPerCake", () => {
       const e = cakePrompts.stockPerCake();
 
       expect(e).to.deep.equal([{
@@ -145,8 +145,8 @@ describe("PROTOTYPES", () => {
         inStock: 0
       }])
     });
-    
-    it("onlyInStock", () => {
+
+    it.skip("onlyInStock", () => {
       const e = cakePrompts.onlyInStock();
 
       expect(e).to.deep.equal([{
@@ -175,20 +175,20 @@ describe("PROTOTYPES", () => {
         inStock: 21
       }])
     });
-    
-    it("totalInventory", () => {
+
+    it.skip("totalInventory", () => {
       const e = cakePrompts.totalInventory();
 
       expect(e).to.deep.equal(59)
     });
-    
-    it("allToppings", () => {
+
+    it.skip("allToppings", () => {
       const e = cakePrompts.allToppings();
 
       expect(e).to.deep.equal(["dutch process cocoa", "toasted sugar", "smoked sea salt", "berries", "edible flowers", "mint", "cranberry", "crystallized ginger"])
     });
-    
-    it("groceryList", () => {
+
+    it.skip("groceryList", () => {
       const e = cakePrompts.groceryList();
 
       expect(e).to.deep.equal({
@@ -203,9 +203,9 @@ describe("PROTOTYPES", () => {
       })
     })
   });
-  
+
   describe("Class Prompts", () => {
-    it("feClassrooms", () => {
+    it.skip("feClassrooms", () => {
       const e = classPrompts.feClassrooms();
 
       expect(e).to.deep.equal([{
@@ -226,8 +226,8 @@ describe("PROTOTYPES", () => {
         capacity: 29
       }])
     });
-    
-    it("totalCapacities", () => {
+
+    it.skip("totalCapacities", () => {
       const e = classPrompts.totalCapacities();
 
       expect(e).to.deep.equal({
@@ -235,8 +235,8 @@ describe("PROTOTYPES", () => {
         beCapacity: 96
       })
     });
-    
-    it("sortByCapacity", () => {
+
+    it.skip("sortByCapacity", () => {
       const e = classPrompts.sortByCapacity();
 
       expect(e).to.deep.equal([{
@@ -276,7 +276,7 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Book prompts", () => {
-    it("removeViolence", () => {
+    it.skip("removeViolence", () => {
       const e = bookPrompts.removeViolence();
 
       expect(e).to.deep.equal(['1984',
@@ -295,7 +295,7 @@ describe("PROTOTYPES", () => {
         'Treasure Island'])
     });
 
-    it("getNewBooks", () => {
+    it.skip("getNewBooks", () => {
       const e = bookPrompts.getNewBooks();
 
       expect(e).to.deep.equal([{
@@ -307,20 +307,20 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Weather prompts", () => {
-    it("getAverageTemps", () => {
+    it.skip("getAverageTemps", () => {
       const e = weatherPrompts.getAverageTemps();
 
       expect(e).to.deep.equal([
         40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5
       ])
     }),
-    it("findSunnySpots", () => {
+    it.skip("findSunnySpots", () => {
       const e = weatherPrompts.findSunnySpots();
 
       expect(e).to.deep.equal(['Atlanta, Georgia is sunny.', 'New Orleans, Louisiana is sunny.', 'Raleigh, North Carolina is mostly sunny.']
       )
     }),
-    it("findHighestHumidity", () => {
+    it.skip("findHighestHumidity", () => {
       const e = weatherPrompts.findHighestHumidity();
 
       expect(e).to.deep.equal({
@@ -333,7 +333,7 @@ describe("PROTOTYPES", () => {
   });
 
   describe("National Park Prompts", () => {
-    it("getParkVisitList", () => {
+    it.skip("getParkVisitList", () => {
       const e = nationalParksPrompts.getParkVisitList();
 
       expect(e).to.deep.equal({
@@ -341,7 +341,7 @@ describe("PROTOTYPES", () => {
         parksVisited: [ 'Rocky Mountain', 'Acadia', 'Zion' ]
       })
     }),
-    it("getParkActivities", () => {
+    it.skip("getParkActivities", () => {
       const e = nationalParksPrompts.getParkActivities();
 
       expect(e).to.deep.equal(
@@ -359,7 +359,7 @@ describe("PROTOTYPES", () => {
         'rock climbing'
       ])
     }),
-    it("getParkInEachState", () => {
+    it.skip("getParkInEachState", () => {
       const e = nationalParksPrompts.getParkInEachState();
 
       expect(e).to.deep.equal(
@@ -375,13 +375,13 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Brewery Prompts", () => {
-    it("getBeerCount", () => {
+    it.skip("getBeerCount", () => {
       const e = breweryPrompts.getBeerCount();
 
       expect(e).to.deep.equal(40)
     });
-    
-    it("getBreweryBeerCount", () => {
+
+    it.skip("getBreweryBeerCount", () => {
       const e = breweryPrompts.getBreweryBeerCount();
 
       expect(e).to.deep.equal([{
@@ -401,8 +401,8 @@ describe("PROTOTYPES", () => {
         beerCount: 7
       }])
     });
-    
-    it("findHighestAbvBeer", () => {
+
+    it.skip("findHighestAbvBeer", () => {
       const e = breweryPrompts.findHighestAbvBeer();
 
       expect(e).to.deep.equal({
@@ -413,9 +413,9 @@ describe("PROTOTYPES", () => {
       })
     })
   });
-  
+
   describe("Turing Prompts", () => {
-    it("studentsForEachInstructor", () => {
+    it.skip("studentsForEachInstructor", () => {
       const e = turingPrompts.studentsForEachInstructor();
 
       expect(e).to.deep.equal([{
@@ -447,8 +447,8 @@ describe("PROTOTYPES", () => {
         studentCount: 20
       }])
     });
-    
-    it("studentsPerInstructor", () => {
+
+    it.skip("studentsPerInstructor", () => {
       const e = turingPrompts.studentsPerInstructor();
 
       expect(e).to.deep.equal({
@@ -458,8 +458,8 @@ describe("PROTOTYPES", () => {
         cohort1801: 9
       })
     });
-    
-    it("modulesPerTeacher", () => {
+
+    it.skip("modulesPerTeacher", () => {
       const e = turingPrompts.modulesPerTeacher();
 
       expect(e).to.deep.equal({
@@ -474,8 +474,8 @@ describe("PROTOTYPES", () => {
         Will: [1, 2, 3, 4]
       })
     });
-    
-    it("curriculumPerTeacher", () => {
+
+    it.skip("curriculumPerTeacher", () => {
       const e = turingPrompts.curriculumPerTeacher();
 
       expect(e).to.deep.equal({
@@ -493,9 +493,9 @@ describe("PROTOTYPES", () => {
       })
     })
   });
-  
+
   describe("Boss Prompts", () => {
-    it("bossLoyalty", () => {
+    it.skip("bossLoyalty", () => {
       const e = bossPrompts.bossLoyalty();
 
       expect(e).to.deep.equal([{
@@ -510,9 +510,9 @@ describe("PROTOTYPES", () => {
       }])
     })
   });
-  
+
   describe("Astronomy Prompts", () => {
-    it("starsInConstellations", () => {
+    it.skip("starsInConstellations", () => {
       const e = astronomyPrompts.starsInConstellations();
 
       expect(e).to.deep.equal([{
@@ -528,8 +528,8 @@ describe("PROTOTYPES", () => {
         color: 'red'
       }])
     });
-    
-    it("starsByColor", () => {
+
+    it.skip("starsByColor", () => {
       const e = astronomyPrompts.starsByColor();
 
       expect(e).to.deep.equal({
@@ -606,22 +606,22 @@ describe("PROTOTYPES", () => {
         }]
       })
     });
-    
-    it("constellationsStarsExistIn", () => {
+
+    it.skip("constellationsStarsExistIn", () => {
       const e = astronomyPrompts.constellationsStarsExistIn();
 
       expect(e).to.deep.equal(["Canis Major", "Carina", "Boötes", "Auriga", "Orion", "Lyra", "Canis Minor", "The Plow", "Orion", "The Little Dipper"])
     })
   });
-  
+
   describe("Ultima Prompts", () => {
-    it("totalDamage", () => {
+    it.skip("totalDamage", () => {
       const e = ultimaPrompts.totalDamage();
 
       expect(e).to.deep.equal(113)
     });
-    
-    it("charactersByTotal", () => {
+
+    it.skip("charactersByTotal", () => {
       const e = ultimaPrompts.charactersByTotal();
 
       expect(e).to.deep.equal([{
@@ -647,9 +647,9 @@ describe("PROTOTYPES", () => {
       }])
     })
   });
-  
+
   describe("Dinosaur Prompts", () => {
-    it("countAwesomeDinosaurs", () => {
+    it.skip("countAwesomeDinosaurs", () => {
       const e = dinosaurPrompts.countAwesomeDinosaurs();
 
       expect(e).to.deep.equal({
@@ -660,8 +660,8 @@ describe("PROTOTYPES", () => {
         'Jurassic World: Fallen Kingdom': 18
       })
     });
-    
-    it("averageAgePerMovie", () => {
+
+    it.skip("averageAgePerMovie", () => {
       const e = dinosaurPrompts.averageAgePerMovie();
 
       expect(e).to.deep.equal({
@@ -680,8 +680,8 @@ describe("PROTOTYPES", () => {
         }
       })
     });
-    
-    it("uncastActors", () => {
+
+    it.skip("uncastActors", () => {
       const e = dinosaurPrompts.uncastActors();
 
       expect(e).to.deep.equal([{
@@ -704,8 +704,8 @@ describe("PROTOTYPES", () => {
         imdbStarMeterRating: 0
       }])
     });
-    
-    it("actorsAgesInMovies", () => {
+
+    it.skip("actorsAgesInMovies", () => {
       const e = dinosaurPrompts.actorsAgesInMovies();
 
       expect(e).to.deep.equal([{
