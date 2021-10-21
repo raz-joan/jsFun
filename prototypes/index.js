@@ -361,7 +361,12 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((acc, book) => {
+      if (!(book.genre === 'Horror') && !(book.genre === 'True Crime')) {
+        acc.push(book.title);
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
@@ -376,11 +381,18 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((acc, book) => {
+
+      if (book.published >= 1990) {
+        acc.push({title: book.title, year: book.published});
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // if year is >= 1990 then add to new array as...
+    // new object with keys of title -> title and published -> year
   }
 
 };
@@ -399,11 +411,15 @@ const weatherPrompts = {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.map((city) => {
+      const avgTemp = (city.temperature.high + city.temperature.low) / 2;
+      return avgTemp;
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an array of the same length using map ...
+    // calculate and return the average temperature
   },
 
   findSunnySpots() {
@@ -413,11 +429,17 @@ const weatherPrompts = {
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.reduce((acc, city) => {
+      if (city.type.includes('sunny')) {
+        acc.push(`${city.location} is ${city.type}.`);
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an array of just the sunny cities...
+    // each index should hold `${city.location} is mostly ${city.type}.`
   },
 
   findHighestHumidity() {
@@ -429,11 +451,14 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = weather.sort((a, b) => {
+      return b.humidity - a.humidity;
+    });
+    return result[0];
 
     // Annotation:
-    // Write your annotation here as a comment
+    // sort the array by humidity highest to lowest
+    // then return the first index
 
   }
 };
