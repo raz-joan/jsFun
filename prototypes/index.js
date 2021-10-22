@@ -481,11 +481,19 @@ const nationalParksPrompts = {
     //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
     //}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.reduce((acc, park) => {
+      if (park.visited) {
+        acc.parksVisited.push(park.name);
+      } else {
+        acc.parksToVisit.push(park.name);
+      }
+      return acc;
+    }, {parksToVisit: [], parksVisited: []});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // use reduce to return an object with ..
+    // two keys of parksToVisit (false) and parksVisited (true)
   },
 
   getParkInEachState() {
@@ -498,11 +506,15 @@ const nationalParksPrompts = {
     // { Florida: 'Everglades' } ]
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.map((park) => {
+      return {[park.location]: park.name};
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // use map to return a new array of the same length
+    // such that each index is an object with a single property
+    // with the key being the state and the value being the park name
   },
 
   getParkActivities() {
@@ -521,11 +533,19 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.reduce((sharedActivities, park) => {
+      park.activities.forEach((activity) => {
+        if (!sharedActivities.includes(activity)) {
+          sharedActivities.push(activity);
+        }
+      });
+      return sharedActivities;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // use reduce to return another array with all activities
+    // from all parks with now duplicates
   }
 };
 
@@ -548,11 +568,14 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((beerTotal, brewery) => {
+      return beerTotal += brewery.beers.length;
+    }, 0);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // use reduce to return the total number of beers by
+    // summing the length of each brewery's beer list
   },
 
   getBreweryBeerCount() {
@@ -564,11 +587,14 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.map((brewery) => {
+      return {name: brewery.name, beerCount: brewery.beers.length};
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an array of the same length s.t. each index is
+    // an object with two keys: name (name) & beerCount (.beers.length)
   },
 
   findHighestAbvBeer() {
@@ -576,11 +602,16 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = breweries.flatMap((brewery) => {
+      return brewery.beers;
+    }).sort((first, second) => {
+      return second.abv - first.abv;
+    });
+    return result[0];
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return the beer with the highest abv of all beers in all breweries
+    // first flatMap() the beers into a new array, then sort highest to lowest and finally return the first index
   }
 };
 

@@ -333,7 +333,7 @@ describe("PROTOTYPES", () => {
   });
 
   describe("National Park Prompts", () => {
-    it.skip("getParkVisitList", () => {
+    it("getParkVisitList", () => {
       const e = nationalParksPrompts.getParkVisitList();
 
       expect(e).to.deep.equal({
@@ -341,7 +341,7 @@ describe("PROTOTYPES", () => {
         parksVisited: [ 'Rocky Mountain', 'Acadia', 'Zion' ]
       })
     }),
-    it.skip("getParkActivities", () => {
+    it("getParkActivities", () => {
       const e = nationalParksPrompts.getParkActivities();
 
       expect(e).to.deep.equal(
@@ -359,7 +359,7 @@ describe("PROTOTYPES", () => {
         'rock climbing'
       ])
     }),
-    it.skip("getParkInEachState", () => {
+    it("getParkInEachState", () => {
       const e = nationalParksPrompts.getParkInEachState();
 
       expect(e).to.deep.equal(
@@ -375,13 +375,13 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Brewery Prompts", () => {
-    it.skip("getBeerCount", () => {
+    it("getBeerCount", () => {
       const e = breweryPrompts.getBeerCount();
 
       expect(e).to.deep.equal(40)
     });
 
-    it.skip("getBreweryBeerCount", () => {
+    it("getBreweryBeerCount", () => {
       const e = breweryPrompts.getBreweryBeerCount();
 
       expect(e).to.deep.equal([{
@@ -402,7 +402,7 @@ describe("PROTOTYPES", () => {
       }])
     });
 
-    it.skip("findHighestAbvBeer", () => {
+    it("findHighestAbvBeer", () => {
       const e = breweryPrompts.findHighestAbvBeer();
 
       expect(e).to.deep.equal({
