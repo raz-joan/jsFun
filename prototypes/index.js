@@ -655,11 +655,15 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.reduce((instructorAndStudents, instructor) => {
+      instructorAndStudents.push({name: instructor.name, studentCount: cohorts[instructor.module - 1].studentCount});
+      return instructorAndStudents;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return one array based on instructors
+    // each index is a teacher with keys name(from instructors array) and studentCount(from cohorts array)
   },
 
   studentsPerInstructor() {
@@ -669,11 +673,20 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cohorts.reduce((studentTeacherRatios, cohort) => {
+      let numTeachers = instructors.filter((instructor) => {
+        return instructor.module === cohort.module;
+      }).length;
+      let ratio = cohort.studentCount / numTeachers;
+      studentTeacherRatios['cohort' + cohort.cohort] = ratio;
+      return studentTeacherRatios;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an object with keys of cohorts.cohort, and a value of students / teacher
+    // which is (cohorts.studentCount / filter(instructors.module#))
+    // cohorts.reduce...
   },
 
   modulesPerTeacher() {
@@ -691,11 +704,29 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.reduce((teachersModulesTaught, instructor) => {
+      let modules = cohorts.reduce((moduleNumbers, cohort) => {
+        let foundConcepts = [];
+        cohort.curriculum.forEach((concept) => {
+          if (instructor.teaches.includes(concept)) {
+            foundConcepts.push(concept);
+          }
+        });
+        if (foundConcepts.length > 0) {
+          moduleNumbers.push(cohort.module);
+        }
+        return moduleNumbers;
+      }, []);
+      teachersModulesTaught[instructor.name] = modules;
+      return teachersModulesTaught;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // use reduce on instructors array to return an object
+    // where each key is (instructor.name)
+    // and it holds and array of the modules that they can teach...
+    // take the smaller array (from cohorts.curriculum) and if it is included in the larger array (from instructors.teaches), then add that module number to the array held in the object being returned
   },
 
   curriculumPerTeacher() {
@@ -708,11 +739,28 @@ const turingPrompts = {
     //   recursion: [ 'Pam', 'Leta' ]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cohorts.reduce((conceptAndTeachers, cohort) => {
+      cohort.curriculum.forEach((concept) => {
+        let allNames = instructors.reduce((names, instructor) => {
+          if (instructor.teaches.includes(concept)) {
+            names.push(instructor.name);
+          }
+          return names;
+        }, []);
+        if (!conceptAndTeachers[concept]) {
+          conceptAndTeachers[concept] = allNames;
+        }
+      });
+      return conceptAndTeachers;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // use reduce to return an object on cohorts array
+    // in each cohort, for each curriculum array, add the concept as a key
+    // then reduce the instructors array to an array s.t. if the instructor.teaches.includes(concept), then add them to the teacher array
+    // assign this teacher array to the concept key
+
   }
 };
 
