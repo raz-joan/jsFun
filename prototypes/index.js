@@ -790,12 +790,37 @@ const bossPrompts = {
     //   { bossName: 'Ursula', sidekickLoyalty: 20 },
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
+    // ------SO DIFFICULT ... first tried the following before chaining--------
+    // did NOT realize that bosses was an object instead of an array ...
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // const lowerBossNames = Object.keys(bosses);
+    //
+    // const upperBossNames = lowerBossNames.map((boss) => {
+    //   return boss.slice(0, 1).toUpperCase() + boss.slice(1);
+    // });
+    // ------------------------------------------------------------------------
+
+    const bossNames = sidekicks.reduce((names, sidekick) => {
+      if (!names.includes(sidekick.boss)) {
+        names.push(sidekick.boss);
+      }
+      return names;
+    }, []).map((boss) => {
+      return {bossName: boss, sidekickLoyalty: 0};
+    });
+
+    sidekicks.forEach((sidekick) => {
+      bossNames.forEach((boss) => {
+        if (boss.bossName === sidekick.boss) {
+          boss.sidekickLoyalty += sidekick.loyaltyToBoss;
+        }
+      });
+    });
+
+    return bossNames;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an array of objects s.t. each object has two keys (bossName -> sidekicks.boss), and (sidekickLoyalty -> sum of all sidekicks loyalty)
   }
 };
 
