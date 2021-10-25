@@ -857,12 +857,24 @@ const astronomyPrompts = {
     //     lightYearsFromEarth: 640,
     //     color: 'red' }
     // ]
+    const constellationStars = Object.keys(constellations);
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.reduce((includedStars, star) => {
+      constellationStars.forEach((constellation) => {
+        if (constellations[constellation].stars.includes(star.name)) {
+          includedStars.push(star);
+        }
+      });
+      return includedStars;
+    }, []);
+
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an array of stars that appear in one of the three constellations,
+    //get array of constellation keys, then reduce over stars, then check
+    // if keysArray.forEach of the constellations if the
+    // .stars.includes(star.name) then add it to the accumulator
   },
 
   starsByColor() {
@@ -876,11 +888,23 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const starsByColor = stars.reduce((colorsWithStars, star) => {
+      if (!colorsWithStars[star.color]) {
+        colorsWithStars[star.color] = [];
+      }
+      return colorsWithStars;
+    }, {});
+
+    stars.forEach((star) => {
+      starsByColor[star.color].push(star);
+    });
+
+    return starsByColor;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an object from reduce on the stars array
+    // the object has keys that are all the colors, s.t. each holds an array
+    // the array is then populated by forEach on the stars, push star into array of the correct color match
   },
 
   constellationsStarsExistIn() {
@@ -898,11 +922,19 @@ const astronomyPrompts = {
     //    "The Little Dipper" ]
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.sort((first, second) => {
+      return first.visualMagnitude - second.visualMagnitude;
+    }).filter((star) => {
+      return star.constellation;
+    }).map((star) => {
+      return star.constellation;
+    });
     return result;
 
-    // Annotation:
-    // Write your annotation here as a comment
+    // Annotation: chain these:
+    // return an array of sorted stars. lowest to highest on visualMagnitude
+    // filter to keep only stars with named constellation
+    // map s.t. each index is just the constellation name's string
   }
 };
 
