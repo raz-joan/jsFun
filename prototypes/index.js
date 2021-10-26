@@ -1027,11 +1027,19 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((titlesDinos, movie) => {
+      const numAwesomeDinos = movie.dinos.filter((dino) => {
+        return dinosaurs[dino].isAwesome;
+      });
+      titlesDinos[movie.title] = numAwesomeDinos.length;
+      return titlesDinos;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Return an object using reduce on the  movies array
+    // the object should have the movie title as the key name
+    // and the length of the dinos array as its value
   },
 
   averageAgePerMovie() {
@@ -1060,11 +1068,27 @@ const dinosaurPrompts = {
       }
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((directorsMoviesActorsAges, movie) => {
+      if (!directorsMoviesActorsAges[movie.director]) {
+        directorsMoviesActorsAges[movie.director] = {};
+      }
+      return directorsMoviesActorsAges;
+    }, {});
+
+    movies.forEach((movie) => {
+      const avgAge = movie.cast.reduce((totalAge, member) => {
+        totalAge += movie.yearReleased - humans[member].yearBorn;
+        return totalAge;
+      }, 0) / movie.cast.length;
+      result[movie.director][movie.title] = Math.floor(avgAge);
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // reduce over the movies array to create an object with keys
+    // that are the movie.director, then reduce over the cast array to
+    // get the average age of the actors
+    // iterate over the movies array again with forEach to assign the movies and avg age to the correct director
   },
 
   uncastActors() {
@@ -1092,12 +1116,34 @@ const dinosaurPrompts = {
         imdbStarMeterRating: 0
       }]
     */
+    const allActors = Object.keys(humans);
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const movieActors = movies.flatMap((movie) => {
+      return movie.cast;
+    });
+
+    const result = allActors.reduce((notYets, human) => {
+      if (!movieActors.includes(human)) {
+        notYets.push({name: human, nationality: humans[human].nationality, imdbStarMeterRating: humans[human].imdbStarMeterRating});
+      }
+      return notYets;
+    }, []).sort((a, b) => {
+      if (a.nationality < b.nationality) {
+        return -1;
+      } else if (a.nationality > b.nationality) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // First need to make an array of actors from the humans object with the keys method
+    // then for each actor check if they are included in each movie's cast array, if not, then keep, if so, remove
+    // use reduce on new array to return another array with their info except year born
+    // sort this array alphabetically by nationality
   },
 
   actorsAgesInMovies() {
@@ -1115,12 +1161,34 @@ const dinosaurPrompts = {
       { name: 'Chris Pratt', ages: [ 36, 39 ] },
       { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
     */
+    const allActors = Object.keys(humans);
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const movieActors = movies.flatMap((movie) => {
+      return movie.cast;
+    });
+
+    const result = allActors.reduce((actors, actor) => {
+      if (movieActors.includes(actor)) {
+        actors.push({name: actor, ages: []});
+      }
+      return actors;
+    }, []).map((actor) => {
+      movies.forEach((movie) => {
+        movie.cast.forEach((member) => {
+          if (member === actor.name) {
+            actor.ages.push(movie.yearReleased - humans[member].yearBorn);
+          }
+        });
+      });
+      return actor;
+    });
+
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an array containing only actors cast in at least one movie
+    // two properties: name and ages, where ages is holding an array
+    // of the actor's ages in each movie they were in
   }
 };
 
